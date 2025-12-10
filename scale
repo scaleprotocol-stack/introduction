@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scale Protocol - Welcome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #4c1d95, #1e293b, #7c2d12, #0f172a, #1e293b);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            color: white;
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            animation: pulseGlow 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 20px;
+            text-align: center;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #f59e0b, #ea580c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            max-width: 900px;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            border-radius: 16px;
+            padding: 60px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #f59e0b, #ea580c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+        }
+
+        .content h3 {
+            font-size: 1.75rem;
+            margin: 40px 0 20px;
+            color: #f59e0b;
+        }
+
+        .content p {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
+
+        .content strong {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        .divider {
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(to right, #f59e0b, #ea580c);
+            margin: 40px 0;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .module-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .module-card:hover {
+            border-color: #f59e0b;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(245, 158, 11, 0.2);
+        }
+
+        .module-card h4 {
+            font-size: 1.5rem;
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+
+        .module-card p {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .module-card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .module-card li {
+            color: #cbd5e1;
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .module-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            background: transparent;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #f59e0b, #ea580c);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #ea580c, #f59e0b);
+        }
+
+        .quote-box {
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 4px solid #f59e0b;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+
+        .quote-box p {
+            font-style: italic;
+            font-size: 1.25rem;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+        }
+
+        .quote-box cite {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 40px 25px;
+            }
+
+            .content h2 {
+                font-size: 2rem;
+            }
+
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SCALE PROTOCOL</h1>
+    </div>
+
+    <!-- PAGE 1: What You're Getting -->
+    <div id="page1" class="page">
+        <div class="content">
+            <h2>What You're About to Receive</h2>
+            <div class="divider"></div>
+
+            <p>You didn't stumble here by accident. Something pulled you toward this—a recognition that the traditional path isn't working. That the advice you've been given is incomplete at best, deliberately misleading at worst.</p>
+
+            <p>Scale Protocol isn't another self-help course. It's not motivational fluff designed to make you feel good while nothing changes. This is a complete operating system for men who are done being broke, confused, and walked over.</p>
+
+            <p><strong>This is what you're getting:</strong></p>
+
+            <div class="module-grid">
+                <div class="module-card">
+                    <h4>Module 1: Money</h4>
+                    <p>4 comprehensive guides on escaping financial mediocrity</p>
+                    <ul>
+                        <li>The Trap: Why traditional paths fail</li>
+                        <li>The Value Equation: Creating offers people pay for</li>
+                        <li>The Resolution: Choosing your path</li>
+                        <li>The Solution: Execution framework for first clients</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <h4>Module 2: Mind</h4>
+                    <p>4 guides on psychological mastery and self-development</p>
+                    <ul>
+                        <li>The Shadow: Integrating what you've rejected</li>
+                        <li>The Archetypes: King, Warrior, Magician, Lover</li>
+                        <li>Individuation: Becoming who you actually are</li>
+                        <li>The Practice: Daily systems for growth</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <h4>Module 3: The Game</h4>
+                    <p>4 guides on relationships, attraction, and power dynamics</p>
+                    <ul>
+                        <li>The Lie: Why "just be yourself" fails</li>
+                        <li>Frame: Maintaining power without losing yourself</li>
+                        <li>The Case Study: Lessons from high-status men</li>
+                        <li>Control: Leading relationships consciously</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p>Each guide ends with <strong>action steps</strong>—not theory you forget, but practices you implement immediately. This isn't about knowing more. It's about becoming more.</p>
+
+            <div class="quote-box">
+                <p>"The man who has done the work doesn't need to prove himself. His presence speaks."</p>
+                <cite>— Scale Protocol</cite>
+            </div>
+
+            <p>You're getting frameworks used by men making $10K-$50K/month. Psychology from Jung, Nietzsche, and modern practitioners. Relationship dynamics that most men will never understand. All distilled into 12 guides you can read and apply in 30 days.</p>
+
+            <p><strong>This isn't information you can Google.</strong> It's integration. Connection. A complete system where money, mind, and relationships work together—because in reality, they always have.</p>
+
+            <div class="nav-buttons">
+                <button class="btn" onclick="scrollToTop()">Back to Top</button>
+                <button class="btn btn-primary" onclick="showPage(2)">Why This Exists →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: My Story -->
+    <div id="page2" class="page hidden">
+        <div class="content">
+            <h2>Why This Exists</h2>
+            <div class="divider"></div>
+
+            <p>I built Scale Protocol because I was tired of watching capable men stay stuck.</p>
+
+            <p>Not because they lacked intelligence. Not because they lacked potential. But because no one gave them the real playbook.</p>
+
+            <p>I've spent years studying what actually works. Not what sounds good in theory. Not what's politically correct. <strong>What works.</strong></p>
+
+            <p>I've read Hormozi's books on value and offers. I've studied Jung's work on the psyche and shadow. I've analyzed the mindset of men who maintain power in relationships—men like Future, who operate from abundance instead of scarcity.</p>
+
+            <p>And I've applied it. Built businesses. Faced my own shadow. Navigated the dynamics most men fumble through blindly. I've made the mistakes. Learned the lessons. Extracted the principles.</p>
+
+            <div class="quote-box">
+                <p>"Knowledge that isn't shared dies with you. Knowledge that is shared multiplies."</p>
+            </div>
+
+            <p>The traditional path told me to get good grades, get a degree, get a job, and retire at 65. That path is a trap. It's designed to keep you compliant, not free.</p>
+
+            <p>The self-help industry told me to "be positive" and "manifest abundance." That's cope for people who don't want to do the real work.</p>
+
+            <p>The dating advice told me to "just be myself" and "treat her like a queen." That advice got me friendzoned and disrespected.</p>
+
+            <p><strong>So I stopped listening to people who didn't have what I wanted.</strong></p>
+
+            <p>I started studying the men who were winning. The entrepreneurs making real money. The psychologists who understood the human mind. The men who had relationships where they maintained respect and attraction.</p>
+
+            <p>And I found patterns. Principles. Systems that worked across contexts.</p>
+
+            <h3>The Decision</h3>
+
+            <p>I could have kept this information to myself. Used it for my own advantage. Built my life quietly without sharing what I'd learned.</p>
+
+            <p>But that felt selfish in a way I couldn't justify.</p>
+
+            <p>There are men out there—men like you—who are capable of so much more than they're currently achieving. Men who've been fed lies their entire lives and are wondering why nothing works.</p>
+
+            <p><strong>I find my knowledge extremely valuable.</strong> It's taken years to accumulate, synthesize, and apply. It's cost me mistakes, failures, and hard lessons.</p>
+
+            <p>But I also believe that knowledge compounds when it's shared with people who will actually use it.</p>
+
+            <p>This isn't charity. I'm not giving this away for free. <strong>$29 is intentional.</strong> It filters out people who aren't serious. It ensures you have skin in the game. People value what they pay for.</p>
+
+            <p>But $29 is also accessible. It's less than a night out. Less than the monthly subscriptions you're not using. It's the price of a book—except this is 12 guides covering three domains that actually matter.</p>
+
+            <p>I created Scale Protocol for men who recognize that they're operating below their potential and are ready to do something about it. Men who don't need motivation—they need a map.</p>
+
+            <div class="quote-box">
+                <p>"You don't rise to the level of your goals. You fall to the level of your systems."</p>
+                <cite>— James Clear</cite>
+            </div>
+
+            <p>This is the system. The one I wish I'd had ten years ago. The one that would have saved me years of confusion and wasted effort.</p>
+
+            <p>You're here because you're ready for it. Let's get to work.</p>
+
+            <div class="nav-buttons">
+                <button class="btn" onclick="showPage(1)">← Previous</button>
+                <button class="btn btn-primary" onclick="showPage(3)">How to Use This →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: How to Use This -->
+    <div id="page3" class="page hidden">
+        <div class="content">
+            <h2>How to Use Scale Protocol</h2>
+            <div class="divider"></div>
+
+            <p>This isn't a course you consume passively. It's a system you implement actively.</p>
+
+            <p>Here's how to extract maximum value from what you've just purchased:</p>
+
+            <h3>Step 1: Read Sequentially</h3>
+            <p>Start with Module 1, PDF 1. Move through in order. Each piece builds on the previous one. Don't skip around looking for "the good stuff"—it's all essential.</p>
+
+            <p><strong>Estimated time:</strong> 4-6 hours to read all 12 guides. Block time. No distractions. Read like your life depends on understanding this—because in many ways, it does.</p>
+
+            <h3>Step 2: Do the Action Steps</h3>
+            <p>Every guide ends with action steps. <strong>Do them.</strong> Not later. Not when you "have time." Immediately after finishing the guide.</p>
+
+            <p>The exercises aren't optional extras. They're where the actual transformation happens. Reading gives you knowledge. Action gives you results.</p>
+
+            <h3>Step 3: Implement Immediately</h3>
+            <p>Don't wait until you've finished all three modules to start. As soon as you complete Module 1, PDF 4 (The Solution), start building your offer and sending outreach.</p>
+
+            <p>As soon as you finish Module 2, PDF 4 (The Practice), implement the daily practices.</p>
+
+            <p>As soon as you finish Module 3, PDF 4 (Control), apply the principles in your current or next relationship.</p>
+
+            <p><strong>Speed of implementation matters more than perfection.</strong> A decent offer sent to 50 people beats a perfect offer that stays in your head.</p>
+
+            <h3>Step 4: Track Your Progress</h3>
+            <p>Module 1 gives you metrics to track: outreach sent, replies received, calls booked, revenue generated.</p>
+
+            <p>Module 2 gives you practices to track: daily silence, physical training, journaling, shadow work.</p>
+
+            <p>Module 3 gives you dynamics to observe: frame tests, boundary enforcement, relationship quality.</p>
+
+            <p><strong>What gets measured gets managed.</strong> Keep a simple log. Weekly at minimum. See what's working. Adjust what isn't.</p>
+
+            <h3>Step 5: Revisit Regularly</h3>
+            <p>This isn't a one-time read. Each time you revisit, you'll extract new insights based on where you are in your development.</p>
+
+            <p>Month 1: You'll understand the concepts.</p>
+            <p>Month 6: You'll see how they apply to your specific situation.</p>
+            <p>Month 12: You'll recognize patterns you missed the first time.</p>
+
+            <p>Set a reminder to re-read the entire protocol every 90 days for the first year. Each pass deepens the integration.</p>
+
+            <div class="quote-box">
+                <p>"Knowledge without action is arrogance. Action without knowledge is chaos. Both together is mastery."</p>
+            </div>
+
+            <h3>The 30-Day Challenge</h3>
+            <p>Here's your first mission:</p>
+
+            <p><strong>Week 1:</strong> Read Module 1. Build your offer. Create a list of 50 prospects.</p>
+            <p><strong>Week 2:</strong> Read Module 2. Implement morning silence and evening review. Send 50 outreach messages.</p>
+            <p><strong>Week 3:</strong> Read Module 3. Book and complete your first sales calls. Continue daily practices.</p>
+            <p><strong>Week 4:</strong> Close your first client. Assess all three domains. Adjust and continue.</p>
+
+            <p>30 days from now, you should have:</p>
+            <ul style="list-style: none; padding-left: 0; margin-top: 20px;">
+                <li style="padding: 10px 0; padding-left: 30px; position: relative; color: #cbd5e1;">
+                    <span style="position: absolute; left: 0; color: #f59e0b; font-weight: bold;">✓</span>
+                    At least one client or serious prospect
+                </li>
+                <li style="padding: 10px 0; padding-left: 30px; position: relative; color: #cbd5e1;">
+                    <span style="position: absolute; left: 0; color: #f59e0b; font-weight: bold;">✓</span>
+                    A consistent daily practice routine
+                </li>
+                <li style="padding: 10px 0; padding-left: 30px; position: relative; color: #cbd5e1;">
+                    <span style="position: absolute; left: 0; color: #f59e0b; font-weight: bold;">✓</span>
+                    Clarity on your dominant archetype and growth edges
+                </li>
+                <li style="padding: 10px 0; padding-left: 30px; position: relative; color: #cbd5e1;">
+                    <span style="position: absolute; left: 0; color: #f59e0b; font-weight: bold;">✓</span>
+                    Better frame control in relationships
+                </li>
+                <li style="padding: 10px 0; padding-left: 30px; position: relative; color: #cbd5e1;">
+                    <span style="position: absolute; left: 0; color: #f59e0b; font-weight: bold;">✓</span>
+                    Momentum that compounds over the next 90 days
+                </li>
+            </ul>
+
+            <p style="margin-top: 40px;"><strong>This is your $29 investment working.</strong></p>
+
+            <p>Not passive consumption. Active transformation. You're not buying information—you're buying a system that, if implemented, changes your trajectory.</p>
+
+            <div class="quote-box">
+                <p>"Build yourself. The rest follows."</p>
+                <cite>— Scale Protocol</cite>
+            </div>
+
+            <p>You have everything you need. The question is whether you'll use it.</p>
+
+            <p>Let's begin.</p>
+
+            <div class="nav-buttons">
+                <button class="btn" onclick="showPage(2)">← Previous</button>
+                <button class="btn btn-primary" onclick="alert('Introduction complete. Proceed to Module 1.')">Start Module 1 →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageNum) {
+            // Hide all pages
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page3').classList.add('hidden');
+
+            // Show selected page
+            document.getElementById('page' + pageNum).classList.remove('hidden');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Start on page 1
+        window.onload = function() {
+            showPage(1);
+        };
+    </script>
+</body>
+</html>
